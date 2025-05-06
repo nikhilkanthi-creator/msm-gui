@@ -54,7 +54,12 @@
     
     <% the_director = matching_directors.at(0) %>
 
+    <% if the_director == nil %>
+      Uh-oh, no director found.
+    <% else %>
     <%= the_director.name %>
+    <% end %>
+
   </dd>
 
   <dt>
