@@ -36,4 +36,32 @@ class DirectorsController < ApplicationController
 
     render({ :template => "director_templates/eldest" })
   end
+
+  def create
+      #create new record in movie table
+
+  director = Director.new
+
+  #retrieve user inputs from params,   #populate each column with input
+
+  director.name = params.fetch("the_name")
+  director.dob = params.fetch("the_dob")
+  director.bio = params.fetch("the_bio")
+  director.image = params.fetch("the_image")
+  director.save
+  #save
+
+  #redirect
+
+  redirect_to("/directors")
+  end
+
+  def destroy
+    the_id = params.fetch("an_id")
+    matching_records = Director.where({ :id => the_id}).at(0)
+    matching_records.destroy
+    redirect_to("/directors")
+
+  end
+
 end
