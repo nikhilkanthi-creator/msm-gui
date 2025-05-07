@@ -14,4 +14,36 @@ class ActorsController < ApplicationController
       
     render({ :template => "actor_templates/show" })
   end
+
+  def create
+
+    actor = Actor.new
+
+    #retrieve user inputs from params,   #populate each column with input
+  
+    actor.name = params.fetch("the_name")
+    actor.dob = params.fetch("the_dob")
+    actor.bio = params.fetch("the_bio")
+    actor.image = params.fetch("the_image")
+    actor.save
+    #save
+  
+    #redirect
+  
+    redirect_to("/actors")
+  
+  end
+
+  def destroy
+
+    the_id = params.fetch("an_id")
+    matching_records = Actor.where({ :id => the_id}).at(0)
+    matching_records.destroy
+    redirect_to("/actors")
+
+  end
+
+  def update
+  end
+
 end
