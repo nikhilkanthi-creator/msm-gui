@@ -64,4 +64,22 @@ class DirectorsController < ApplicationController
 
   end
 
+  def update
+
+  # get the id out of params
+  director_id = params.fetch("the_id")
+  # look up the existing record
+matching_director = Director.where({ :id => director_id}).at(0)
+
+  # overwrite each column with the values from user input, save
+  matching_director.name = params.fetch("the_name")
+  matching_director.dob = params.fetch("the_dob")
+  matching_director.bio = params.fetch("the_bio")
+  matching_director.image = params.fetch("the_image")
+  matching_director.save
+
+redirect_to("/directors/#{matching_director.id}")
+# redirect to the same page (movie details)
+  end
+
 end
