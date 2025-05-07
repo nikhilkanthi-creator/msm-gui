@@ -42,4 +42,23 @@ class MoviesController < ApplicationController
     redirect_to("/movies")
   end
 
+  def update
+  # get the id out of params
+  movie_id = params.fetch("the_id")
+    # look up the existing record
+  matching_movie = Movie.where({ :id => movie_id}).at(0)
+
+    # overwrite each column with the values from user input, save
+  matching_movie.title = params.fetch("the_title")
+  matching_movie.year = params.fetch("the_year")
+  matching_movie.description = params.fetch("the_description")
+  matching_movie.image = params.fetch("the_image")
+  matching_movie.director_id = params.fetch("the_director_id")
+  matching_movie.save
+
+  redirect_to("/movies/#{matching_movie.id}")
+  # redirect to the same page (movie details)
+  end
+
+
 end
